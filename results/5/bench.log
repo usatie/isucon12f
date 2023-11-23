@@ -1,0 +1,4 @@
+14:36:16.498315 ERROR[0] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+14:36:16.498345 [PASSED]: true
+14:36:16.498352 [SCORE] 21616 (addition: 21631, deduction: 15)
+[ADMIN] 14:36:16.498388 [SCORE] map[GET /user/:userId/gacha/index:1399 GET /user/:userId/home:1445 GET /user/:userId/item:387 GET /user/:userId/present/index/:n:1825 POST /login:1051 POST /login(ban):412 POST /user:398 POST /user/:userId/card:381 POST /user/:userId/card/addexp/:cardId:384 POST /user/:userId/gacha/draw/:gachaId:1386 POST /user/:userId/present/receive:1792 POST /user/:userId/reward:1045]
