@@ -132,6 +132,9 @@ func connectDB(batch bool) (*sqlx.DB, error) {
 	if err != nil {
 		return nil, err
 	}
+	// dbのコネクション数の設定
+	dbx.SetMaxIdleConns(1000)
+	dbx.SetMaxOpenConns(1000)
 	return dbx, nil
 }
 

@@ -1,0 +1,8 @@
+14:52:36.210799 ERROR[0] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+14:52:36.210817 ERROR[1] load: scenario-error-status-code: GET /user/9999024006/item : expected(200) != actual(500)
+14:52:36.210823 ERROR[2] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+14:52:36.210831 ERROR[3] load: scenario-error-status-code: GET /user/9999024037/item : expected(200) != actual(500)
+14:52:36.210838 ERROR[4] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+14:52:36.210856 [PASSED]: true
+14:52:36.210863 [SCORE] 22160 (addition: 22235, deduction: 75)
+[ADMIN] 14:52:36.210892 [SCORE] map[GET /user/:userId/gacha/index:1393 GET /user/:userId/home:1425 GET /user/:userId/item:474 GET /user/:userId/present/index/:n:1900 POST /login:943 POST /login(ban):572 POST /user:492 POST /user/:userId/card:465 POST /user/:userId/card/addexp/:cardId:467 POST /user/:userId/gacha/draw/:gachaId:1376 POST /user/:userId/present/receive:1874 POST /user/:userId/reward:934]
