@@ -8,6 +8,11 @@ USER:=isucon
 BIN_NAME:=isuconquest
 BUILD_DIR:=$(HOME)/webapp/go
 SERVICE_NAME:=$(BIN_NAME).go.service
+MYSQL_HOST:=$(ISUCON_DB_HOST)
+MYSQL_PORT:=$(ISUCON_DB_PORT)
+MYSQL_USER:=$(ISUCON_DB_USER)
+MYSQL_PASS:=$(ISUCON_DB_PASSWORD)
+MYSQL_DBNAME:=$(ISUCON_DB_NAME)
 
 # Configurable (but unnecessary to change)
 GITHUB_USER:=usatie
