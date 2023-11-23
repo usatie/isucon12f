@@ -1,0 +1,18 @@
+13:29:10.646498 ERROR[0] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+13:29:10.646515 ERROR[1] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+13:29:10.646521 ERROR[2] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+13:29:10.646526 ERROR[3] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+13:29:10.646530 ERROR[4] load: scenario-error-status-code: GET /user/72261/item : expected(200) != actual(500)
+13:29:10.646534 ERROR[5] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+13:29:10.646538 ERROR[6] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+13:29:10.646541 ERROR[7] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+13:29:10.646552 ERROR[8] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/user": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+13:29:10.646563 ERROR[9] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/user": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+13:29:10.646572 ERROR[10] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/user": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+13:29:10.646579 ERROR[11] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/user": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+13:29:10.646585 ERROR[12] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/user": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+13:29:10.646591 ERROR[13] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/user": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+13:29:10.646596 ERROR[14] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/user": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+13:29:10.646628 [PASSED]: true
+13:29:10.646637 [SCORE] 13972 (addition: 14197, deduction: 225)
+[ADMIN] 13:29:10.646666 [SCORE] map[GET /user/:userId/gacha/index:967 GET /user/:userId/home:981 GET /user/:userId/item:180 GET /user/:userId/present/index/:n:1162 POST /login:798 POST /login(ban):297 POST /user:183 POST /user/:userId/card:180 POST /user/:userId/card/addexp/:cardId:180 POST /user/:userId/gacha/draw/:gachaId:939 POST /user/:userId/present/receive:1154 POST /user/:userId/reward:797]
