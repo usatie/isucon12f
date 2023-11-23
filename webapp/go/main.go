@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bytes"
 	"database/sql"
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"math"
 	"math/rand"
@@ -785,6 +787,39 @@ type CreateUserResponse struct {
 	SessionID        string           `json:"sessionId"`
 	CreatedAt        int64            `json:"createdAt"`
 	UpdatedResources *UpdatedResource `json:"updatedResources"`
+}
+
+func printAsCurl(c echo.Context) error {
+	// リクエストメソッドとURLを取得
+	method := c.Request().Method
+	url := c.Request().URL.String()
+
+	// curlコマンドを組み立てる
+	curl := fmt.Sprintf("curl -X %s 'http://localhost%s'", method, url)
+
+	// リクエストヘッダーを取得してcurlコマンドに追加
+	for name, headers := range c.Request().Header {
+		for _, h := range headers {
+			curl += fmt.Sprintf(" -H '%s: %s'", name, h)
+		}
+	}
+
+	// リクエストボディがある場合は、それを取得してcurlコマンドに追加
+	if c.Request().Body != nil {
+		body, err := ioutil.ReadAll(c.Request().Body)
+		if err != nil {
+			// エラー処理をここに記述します
+			return err
+		}
+		// リクエストボディをcurlコマンドに追加
+		curl += fmt.Sprintf(" -d '%s'", string(body))
+		// ボディを読み取ったので、リクエストのBodyを再度読み取れるようにリセットします
+		c.Request().Body = ioutil.NopCloser(bytes.NewBuffer(body))
+	}
+
+	// 組み立てたcurlコマンドを出力
+	fmt.Println(curl)
+	return nil
 }
 
 // login ログイン
