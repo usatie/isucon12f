@@ -5,13 +5,17 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"math"
 	"math/rand"
 	"net/http"
 	"os"
 	"os/exec"
+	"runtime"
 	"strconv"
 	"time"
+
+	_ "net/http/pprof"
 
 	"github.com/go-sql-driver/mysql"
 	"github.com/google/uuid"
@@ -52,6 +56,10 @@ type Handler struct {
 func main() {
 	rand.Seed(time.Now().UnixNano())
 	time.Local = time.FixedZone("Local", 9*60*60)
+	runtime.SetBlockProfileRate(1)
+	go func() {
+		log.Fatal(http.ListenAndServe(":6060", nil))
+	}()
 
 	e := echo.New()
 	e.Use(middleware.Logger())
