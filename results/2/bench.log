@@ -1,0 +1,190 @@
+isucon@ip-172-31-47-24:➜  ~ git:(master) ✗ ./bin/benchmarker --stage=prod --request-timeout=10s --initialize-request-timeout=60s
+[ADMIN] 12:37:47.718811 benchmarker --target-host=172.31.33.239 --request-timeout=10s --initialize-request-timeout=1m0s --exit-error-on-fail=true --stage=prod --max-parallelism=100 --prepare-only=false
+[ADMIN] 12:38:19.748947 [LANGUAGE] go
+12:38:19.748962 [ValidationScenario] 整合性チェックを開始します
+12:38:20.138381 整合性チェック Request:POST /login (日跨ぎ前）
+12:38:22.849623 整合性チェック Request:POST /login (日跨ぎ後）
+12:38:25.032856 整合性チェック Request:POST /admin/login 失敗の場合
+12:38:25.096080 整合性チェック Request:POST /admin/login
+12:38:25.163681 整合性チェック Request:GET /admin/user/{userID}
+12:38:25.288108 整合性チェック Request:POST /login 失敗の場合
+12:38:25.289391 整合性チェック Request:POST /user
+12:38:27.615877 整合性チェック Request:POST /login
+12:38:29.824014 整合性チェック Request:GET /user/{userId}/home セッション無効の場合
+12:38:29.825548 整合性チェック Request:GET /user/{userId}/home
+12:38:29.827638 整合性チェック Request:GET /user/{userId}/home 他人のホーム表示の場合
+12:38:29.828949 整合性チェック Request:POST /user/{userId}/reward
+12:38:29.832308 整合性チェック Request:POST /user/{userId}/card
+12:38:29.840850 整合性チェック Request:GET /user/{userId}/item
+12:38:29.846809 整合性チェック Request:POST /user/{userId}/addexp/{cardId}
+12:38:29.853447 整合性チェック Request:GET /user/{userId}/present/index/:n
+12:38:29.862190 整合性チェック Request:POST /user/{userId}/present/receive
+12:38:29.945804 整合性チェック Request:GET /user/{userId}/gacha/index
+12:38:29.956503 整合性チェック Request:POST /user/{userId}/gacha/draw/{gachaID}/10
+12:38:29.973049 整合性チェック Request:GET /admin/master
+12:38:29.984979 整合性チェック Request:POST /admin/user/{userID}/ban
+12:38:29.988006 整合性チェック Request:POST /login Banの場合
+12:38:29.989298 [ValidationScenario] 整合性チェックを終了します
+12:38:29.989305 整合性チェックに成功しました！
+12:38:29.989317 初期化処理が成功しました！
+12:38:29.989337 アプリケーションへの負荷走行を開始します
+[ADMIN] 12:38:29.989392 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:38:29.989429 シナリオ走行を開始しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:38:29.989398 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:30.493583 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:30.493611 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:30.997452 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:30.997509 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:31.501225 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:31.501261 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:32.003502 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:32.003528 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:32.506356 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:32.506385 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:33.008852 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:33.008879 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:33.511795 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:33.511835 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:34.014722 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:34.014749 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:34.517697 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:34.517718 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:34.536788 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:38:34.536804 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:38:34.555490 シナリオ走行を終了しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:38:34.555533 シナリオ走行を開始しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:38:35.022299 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:35.022329 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:35.525365 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:35.525393 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:36.029716 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:36.029744 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:36.532289 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:36.532328 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:37.034772 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:37.034800 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:37.537257 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:37.537287 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:38.039703 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:38.039732 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:38.542493 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:38.542518 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:38.991030 シナリオ走行を終了しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:38:38.991059 シナリオ走行を開始しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:38:39.020773 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:38:39.020787 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:38:39.045166 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:39.045182 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:39.547399 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:39.547426 シナリオ走行を開始しました [シナリオ名: Banユーザログイン]
+12:38:39.989477 現在のログイン成功数: [total: 2 (+2人)]
+12:38:39.989491 現在のユーザー登録成功数: [total: 2 (+2人)]
+[ADMIN] 12:38:40.049619 シナリオ走行を終了しました [シナリオ名: Banユーザログイン]
+[ADMIN] 12:38:43.434330 シナリオ走行を終了しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:38:43.434359 シナリオ走行を開始しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:38:43.509945 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:38:43.509963 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:38:47.858818 シナリオ走行を終了しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:38:47.858866 シナリオ走行を開始しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:38:48.033693 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:38:48.033728 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:38:48.033820 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:38:48.033910 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:38:48.034054 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:38:48.046267 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:38:48.046279 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:38:48.047744 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:38:48.047815 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:38:48.047821 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:38:48.047972 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:38:49.990496 シナリオ走行を開始しました [シナリオ名: マスター更新]
+12:38:50.060953 マスターデータの更新が完了しました。次のマスターバージョンは「2」です。
+[ADMIN] 12:38:50.062042 シナリオ走行を終了しました [シナリオ名: マスター更新]
+[ADMIN] 12:38:52.427443 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:38:52.427462 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:38:58.051504 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:38:58.051524 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:38:58.051542 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:38:58.051550 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:38:58.646749 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:38:58.646768 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:38:58.648492 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:38:58.648505 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:38:59.222442 シナリオ走行を終了しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:38:59.222490 シナリオ走行を開始しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:38:59.412910 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:38:59.412929 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:39:02.431539 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:39:02.431573 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:39:07.509711 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:39:07.509728 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:39:08.019745 シナリオ走行を終了しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:39:08.019789 シナリオ走行を開始しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:39:08.019823 シナリオ走行を開始しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:39:08.052420 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:39:08.052440 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:39:08.153603 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:39:08.153629 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:39:08.325085 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:39:08.325102 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:39:09.413307 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:39:09.413331 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:39:17.514617 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:39:17.514644 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:39:18.020723 シナリオ走行を終了しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:39:18.020770 シナリオ走行を開始しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:39:18.020775 シナリオ走行を終了しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:39:18.020785 シナリオ走行を開始しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:39:18.154517 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:39:18.154536 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:39:18.326239 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:39:18.326259 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:39:19.413889 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:39:19.413918 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:39:27.515688 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:39:27.515729 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:39:28.021301 シナリオ走行を終了しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:39:28.021336 シナリオ走行を開始しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:39:28.021343 シナリオ走行を終了しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:39:28.021353 シナリオ走行を開始しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:39:28.155000 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:39:28.155018 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:39:28.326632 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:39:28.326652 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:39:29.414668 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:39:29.414692 シナリオ走行を開始しました [シナリオ名: ログイン]
+[ADMIN] 12:39:29.989842 シナリオ走行を終了しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:39:29.989885 シナリオ走行を終了しました [シナリオ名: 新規ユーザー登録]
+[ADMIN] 12:39:29.989973 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:39:29.989975 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:39:29.990033 シナリオ走行を終了しました [シナリオ名: ログイン]
+[ADMIN] 12:39:29.990065 シナリオ走行を終了しました [シナリオ名: ログイン]
+12:39:32.989899 ERROR[0] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+12:39:32.989915 ERROR[1] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+12:39:32.989935 ERROR[2] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+12:39:32.989952 ERROR[3] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+12:39:32.989967 ERROR[4] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/login": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+12:39:32.989978 ERROR[5] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/login": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+12:39:32.989993 ERROR[6] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+12:39:32.989997 ERROR[7] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+12:39:32.990001 ERROR[8] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+12:39:32.990007 ERROR[9] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/login": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+12:39:32.990014 ERROR[10] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/login": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+12:39:32.990034 ERROR[11] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+12:39:32.990040 ERROR[12] load: scenario-error-status-code: POST /login : expected(200) != actual(500)
+12:39:32.990049 ERROR[13] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/login": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+12:39:32.990056 ERROR[14] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/login": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+12:39:32.990064 ERROR[15] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/user": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+12:39:32.990073 ERROR[16] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/user": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+12:39:32.990082 ERROR[17] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/login": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+12:39:32.990090 ERROR[18] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/login": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+12:39:32.990114 ERROR[19] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/login": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+12:39:32.990123 ERROR[20] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/login": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+12:39:32.990133 ERROR[21] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/user": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+12:39:32.990143 ERROR[22] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/user": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+12:39:32.990150 ERROR[23] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/login": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+12:39:32.990160 ERROR[24] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/login": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+12:39:32.990167 ERROR[25] load: timeout: scenario-error-invalid-request: timeout: Post "http://172.31.33.239/login": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+12:39:32.990205 [PASSED]: true
+12:39:32.990210 [SCORE] 0 (addition: 211, deduction: 390)
+[ADMIN] 12:39:32.990233 [SCORE] map[GET /user/:userId/gacha/index:11 GET /user/:userId/home:11 GET /user/:userId/item:6 GET /user/:userId/present/index/:n:17 POST /login:6 POST /login(ban):20 POST /user:7 POST /user/:userId/card:6 POST /user/:userId/card/addexp/:cardId:6 POST /user/:userId/gacha/draw/:gachaId:11 POST /user/:userId/present/receive:17 POST /user/:userId/reward:5]
