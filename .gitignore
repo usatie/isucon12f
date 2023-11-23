@@ -9,3 +9,8 @@
 !s1
 !s2
 !s3
+
+# Common
+*.mount
+*.swp
+*.swo
