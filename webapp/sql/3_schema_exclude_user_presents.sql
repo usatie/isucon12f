@@ -257,3 +257,6 @@ CREATE TABLE `admin_users` (
   `deleted_at` bigint default NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+/* Custom Index */
+ALTER TABLE user_present_all_received_history ADD INDEX idx(user_id, present_all_id);
