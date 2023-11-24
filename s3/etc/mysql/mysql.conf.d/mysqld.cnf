@@ -30,6 +30,7 @@ user		= mysql
 # localhost which is more compatible and is not less secure.
 bind-address		= 0.0.0.0
 mysqlx-bind-address	= 0.0.0.0
+local-infile=1
 #
 # * Fine Tuning
 #

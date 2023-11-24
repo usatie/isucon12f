@@ -52,7 +52,8 @@ const (
 )
 
 type Handler struct {
-	DB *sqlx.DB
+	DB  *sqlx.DB
+	DB2 *sqlx.DB
 }
 
 func main() {
@@ -77,10 +78,16 @@ func main() {
 		e.Logger.Fatalf("failed to connect to db: %v", err)
 	}
 	defer dbx.Close()
+	dbx2, err := connectDB2(false)
+	if err != nil {
+		e.Logger.Fatalf("failed to connect to db2: %v", err)
+	}
+	defer dbx2.Close()
 
 	e.Server.Addr = fmt.Sprintf(":%v", "8080")
 	h := &Handler{
-		DB: dbx,
+		DB:  dbx,
+		DB2: dbx2,
 	}
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{}))
@@ -125,6 +132,27 @@ func connectDB(batch bool) (*sqlx.DB, error) {
 		getEnv("ISUCON_DB_USER", "isucon"),
 		getEnv("ISUCON_DB_PASSWORD", "isucon"),
 		getEnv("ISUCON_DB_HOST", "127.0.0.1"),
+		getEnv("ISUCON_DB_PORT", "3306"),
+		getEnv("ISUCON_DB_NAME", "isucon"),
+		"Asia%2FTokyo",
+		batch,
+	)
+	dbx, err := sqlx.Open("mysql", dsn)
+	if err != nil {
+		return nil, err
+	}
+	// dbのコネクション数の設定
+	dbx.SetMaxIdleConns(1000)
+	dbx.SetMaxOpenConns(1000)
+	return dbx, nil
+}
+
+func connectDB2(batch bool) (*sqlx.DB, error) {
+	dsn := fmt.Sprintf(
+		"%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=true&loc=%s&multiStatements=%t&interpolateParams=true",
+		getEnv("ISUCON_DB_USER", "isucon"),
+		getEnv("ISUCON_DB_PASSWORD", "isucon"),
+		getEnv("ISUCON_DB_HOST2", "127.0.0.1"),
 		getEnv("ISUCON_DB_PORT", "3306"),
 		getEnv("ISUCON_DB_NAME", "isucon"),
 		"Asia%2FTokyo",
@@ -247,7 +275,7 @@ func (h *Handler) checkSessionMiddleware(next echo.HandlerFunc) echo.HandlerFunc
 func (h *Handler) checkOneTimeToken(token string, tokenType int, requestAt int64) error {
 	tk := new(UserOneTimeToken)
 	query := "SELECT * FROM user_one_time_tokens WHERE token=? AND token_type=? AND deleted_at IS NULL"
-	if err := h.DB.Get(tk, query, token, tokenType); err != nil {
+	if err := h.DB2.Get(tk, query, token, tokenType); err != nil {
 		if err == sql.ErrNoRows {
 			return ErrInvalidToken
 		}
@@ -256,7 +284,7 @@ func (h *Handler) checkOneTimeToken(token string, tokenType int, requestAt int64
 
 	if tk.ExpiredAt < requestAt {
 		query = "UPDATE user_one_time_tokens SET deleted_at=? WHERE token=?"
-		if _, err := h.DB.Exec(query, requestAt, token); err != nil {
+		if _, err := h.DB2.Exec(query, requestAt, token); err != nil {
 			return err
 		}
 		return ErrInvalidToken
@@ -264,7 +292,7 @@ func (h *Handler) checkOneTimeToken(token string, tokenType int, requestAt int64
 
 	// 使ったトークンは失効する
 	query = "UPDATE user_one_time_tokens SET deleted_at=? WHERE token=?"
-	if _, err := h.DB.Exec(query, requestAt, token); err != nil {
+	if _, err := h.DB2.Exec(query, requestAt, token); err != nil {
 		return err
 	}
 
@@ -677,6 +705,11 @@ func initialize(c echo.Context) error {
 		return errorResponse(c, http.StatusInternalServerError, err)
 	}
 	defer dbx.Close()
+	dbx2, err := connectDB2(true)
+	if err != nil {
+		return errorResponse(c, http.StatusInternalServerError, err)
+	}
+	defer dbx2.Close()
 
 	out, err := exec.Command("/bin/sh", "-c", SQLDirectory+"init.sh").CombinedOutput()
 	if err != nil {
@@ -1053,7 +1086,7 @@ func (h *Handler) listGacha(c echo.Context) error {
 
 	// ガチャ実行用のワンタイムトークンの発行
 	query = "UPDATE user_one_time_tokens SET deleted_at=? WHERE user_id=? AND deleted_at IS NULL"
-	if _, err = h.DB.Exec(query, requestAt, userID); err != nil {
+	if _, err = h.DB2.Exec(query, requestAt, userID); err != nil {
 		return errorResponse(c, http.StatusInternalServerError, err)
 	}
 	tk, err := generateUUID()
@@ -1069,7 +1102,7 @@ func (h *Handler) listGacha(c echo.Context) error {
 		ExpiredAt: requestAt + 600,
 	}
 	query = "INSERT INTO user_one_time_tokens(user_id, token, token_type, created_at, updated_at, expired_at) VALUES (?, ?, ?, ?, ?, ?)"
-	res, err := h.DB.Exec(query, token.UserID, token.Token, token.TokenType, token.CreatedAt, token.UpdatedAt, token.ExpiredAt)
+	res, err := h.DB2.Exec(query, token.UserID, token.Token, token.TokenType, token.CreatedAt, token.UpdatedAt, token.ExpiredAt)
 	if err != nil {
 		return errorResponse(c, http.StatusInternalServerError, err)
 	}
@@ -1445,7 +1478,7 @@ func (h *Handler) listItem(c echo.Context) error {
 
 	// アイテムの強化に使うためのワンタイムトークンを発行
 	query = "UPDATE user_one_time_tokens SET deleted_at=? WHERE user_id=? AND deleted_at IS NULL"
-	if _, err = h.DB.Exec(query, requestAt, userID); err != nil {
+	if _, err = h.DB2.Exec(query, requestAt, userID); err != nil {
 		return errorResponse(c, http.StatusInternalServerError, err)
 	}
 	tk, err := generateUUID()
@@ -1461,7 +1494,7 @@ func (h *Handler) listItem(c echo.Context) error {
 		ExpiredAt: requestAt + 600,
 	}
 	query = "INSERT INTO user_one_time_tokens(user_id, token, token_type, created_at, updated_at, expired_at) VALUES (?, ?, ?, ?, ?, ?)"
-	res, err := h.DB.Exec(query, token.UserID, token.Token, token.TokenType, token.CreatedAt, token.UpdatedAt, token.ExpiredAt)
+	res, err := h.DB2.Exec(query, token.UserID, token.Token, token.TokenType, token.CreatedAt, token.UpdatedAt, token.ExpiredAt)
 	if err != nil {
 		return errorResponse(c, http.StatusInternalServerError, err)
 	}
