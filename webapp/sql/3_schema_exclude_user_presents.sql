@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `admin_users`;
 ALTER TABLE user_presents MODIFY COLUMN id bigint auto_increment;
 
 CREATE TABLE `users` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
+  `id` bigint NOT NULL,
   `isu_coin` bigint NOT NULL default 0 comment '所持ISU-COIN',
   `last_getreward_at` bigint NOT NULL comment '最後にリワードを取得した日時',
   `last_activated_at` bigint NOT NULL comment '最終アクティブ日時',
