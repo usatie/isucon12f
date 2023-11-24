@@ -56,12 +56,14 @@ const (
 type Handler struct {
 	DB  *sqlx.DB
 	DB2 *sqlx.DB
+	DB3 *sqlx.DB
+	DB4 *sqlx.DB
 }
 
-const dbNum = 2
+const dbNum = 4
 
 func (h *Handler) getAllDB() []*sqlx.DB {
-	return []*sqlx.DB{h.DB, h.DB2}
+	return []*sqlx.DB{h.DB, h.DB2, h.DB3, h.DB4}
 }
 
 func hash(userID int64) uint64 {
@@ -89,21 +91,33 @@ func main() {
 		AllowHeaders: []string{"Content-Type", "x-master-version", "x-session"},
 	}))
 
-	dbx, err := connectDB(false)
+	dbx, err := connectDB(false, 1)
 	if err != nil {
 		e.Logger.Fatalf("failed to connect to db: %v", err)
 	}
 	defer dbx.Close()
-	dbx2, err := connectDB2(false)
+	dbx2, err := connectDB(false, 2)
 	if err != nil {
 		e.Logger.Fatalf("failed to connect to db2: %v", err)
 	}
 	defer dbx2.Close()
+	dbx3, err := connectDB(false, 3)
+	if err != nil {
+		e.Logger.Fatalf("failed to connect to db3: %v", err)
+	}
+	defer dbx3.Close()
+	dbx4, err := connectDB(false, 4)
+	if err != nil {
+		e.Logger.Fatalf("failed to connect to db4: %v", err)
+	}
+	defer dbx4.Close()
 
 	e.Server.Addr = fmt.Sprintf(":%v", "8080")
 	h := &Handler{
 		DB:  dbx,
 		DB2: dbx2,
+		DB3: dbx3,
+		DB4: dbx4,
 	}
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{}))
@@ -142,38 +156,24 @@ func main() {
 }
 
 // connectDB DBに接続する
-func connectDB(batch bool) (*sqlx.DB, error) {
-	dsn := fmt.Sprintf(
-		"%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=true&loc=%s&multiStatements=%t&interpolateParams=true",
-		getEnv("ISUCON_DB_USER", "isucon"),
-		getEnv("ISUCON_DB_PASSWORD", "isucon"),
-		getEnv("ISUCON_DB_HOST", "127.0.0.1"),
-		getEnv("ISUCON_DB_PORT", "3306"),
-		getEnv("ISUCON_DB_NAME", "isucon"),
-		"Asia%2FTokyo",
-		batch,
-	)
-	dbx, err := sqlx.Open("mysql", dsn)
-	if err != nil {
-		return nil, err
+func connectDB(batch bool, hostID int) (*sqlx.DB, error) {
+	fmt.Println("connectDB: ", hostID)
+	host := getEnv("ISUCON_DB_HOST"+strconv.Itoa(hostID), "127.0.0.1")
+	if hostID == 1 {
+		host = getEnv("ISUCON_DB_HOST", "127.0.0.1")
 	}
-	// dbのコネクション数の設定
-	dbx.SetMaxIdleConns(1000)
-	dbx.SetMaxOpenConns(1000)
-	return dbx, nil
-}
-
-func connectDB2(batch bool) (*sqlx.DB, error) {
+	fmt.Println("host: ", host)
 	dsn := fmt.Sprintf(
 		"%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=true&loc=%s&multiStatements=%t&interpolateParams=true",
 		getEnv("ISUCON_DB_USER", "isucon"),
 		getEnv("ISUCON_DB_PASSWORD", "isucon"),
-		getEnv("ISUCON_DB_HOST2", "127.0.0.1"),
+		host,
 		getEnv("ISUCON_DB_PORT", "3306"),
 		getEnv("ISUCON_DB_NAME", "isucon"),
 		"Asia%2FTokyo",
 		batch,
 	)
+	fmt.Println("dsn: ", dsn)
 	dbx, err := sqlx.Open("mysql", dsn)
 	if err != nil {
 		return nil, err
@@ -735,16 +735,26 @@ func (h *Handler) obtainItem(tx *sqlx.Tx, userID, itemID int64, itemType int, ob
 // initialize 初期化処理
 // POST /initialize
 func initialize(c echo.Context) error {
-	dbx, err := connectDB(true)
+	dbx, err := connectDB(true, 1)
 	if err != nil {
 		return errorResponse(c, http.StatusInternalServerError, err)
 	}
 	defer dbx.Close()
-	dbx2, err := connectDB2(true)
+	dbx2, err := connectDB(true, 2)
 	if err != nil {
 		return errorResponse(c, http.StatusInternalServerError, err)
 	}
 	defer dbx2.Close()
+	dbx3, err := connectDB(true, 3)
+	if err != nil {
+		return errorResponse(c, http.StatusInternalServerError, err)
+	}
+	defer dbx3.Close()
+	dbx4, err := connectDB(true, 4)
+	if err != nil {
+		return errorResponse(c, http.StatusInternalServerError, err)
+	}
+	defer dbx4.Close()
 
 	out, err := exec.Command("/bin/sh", "-c", SQLDirectory+"init.sh").CombinedOutput()
 	if err != nil {
