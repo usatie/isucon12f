@@ -1,0 +1,5 @@
+07:40:26.889855 ERROR[0] load: scenario-error-status-code: GET /user/1727955138838007808/item : expected(200) != actual(500)
+07:40:26.889875 ERROR[1] load: scenario-error-status-code: GET /user/1727955170077184000/item : expected(200) != actual(500)
+07:40:26.889894 [PASSED]: true
+07:40:26.889901 [SCORE] 73777 (addition: 73807, deduction: 30)
+[ADMIN] 07:40:26.889927 [SCORE] map[GET /user/:userId/gacha/index:4725 GET /user/:userId/home:4736 GET /user/:userId/item:1687 GET /user/:userId/present/index/:n:6422 POST /login:3019 POST /login(ban):786 POST /user:1718 POST /user/:userId/card:1642 POST /user/:userId/card/addexp/:cardId:1638 POST /user/:userId/gacha/draw/:gachaId:4635 POST /user/:userId/present/receive:6415 POST /user/:userId/reward:3016]
