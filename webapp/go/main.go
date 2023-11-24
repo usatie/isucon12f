@@ -20,6 +20,7 @@ import (
 	_ "net/http/pprof"
 
 	"github.com/bwmarrin/snowflake"
+	"github.com/cespare/xxhash/v2"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/google/uuid"
 	"github.com/jmoiron/sqlx"
@@ -57,12 +58,18 @@ type Handler struct {
 	DB2 *sqlx.DB
 }
 
+const dbNum = 2
+
 func (h *Handler) getAllDB() []*sqlx.DB {
 	return []*sqlx.DB{h.DB, h.DB2}
 }
 
+func hash(userID int64) uint64 {
+	return xxhash.Sum64String(strconv.FormatInt(userID, 10))
+}
+
 func (h *Handler) getDB(userID int64) *sqlx.DB {
-	return h.getAllDB()[userID%2]
+	return h.getAllDB()[hash(userID)%dbNum]
 }
 
 func main() {
@@ -255,6 +262,16 @@ func (h *Handler) checkSessionMiddleware(next echo.HandlerFunc) echo.HandlerFunc
 		query := "SELECT * FROM user_sessions WHERE session_id=? AND deleted_at IS NULL"
 		if err := h.getDB(userID).Get(userSession, query, sessID); err != nil {
 			if err == sql.ErrNoRows {
+				for _, db := range h.getAllDB() {
+					if db == h.getDB(userID) {
+						continue
+					}
+					if err := db.Get(userSession, query, sessID); err != nil {
+						continue
+					}
+					// Found but not match userID
+					return errorResponse(c, http.StatusForbidden, ErrForbidden)
+				}
 				return errorResponse(c, http.StatusUnauthorized, ErrUnauthorized)
 			}
 			return errorResponse(c, http.StatusInternalServerError, err)
@@ -334,7 +351,8 @@ func (h *Handler) checkViewerID(userID int64, viewerID string) error {
 func (h *Handler) checkBan(userID int64) (bool, error) {
 	banUser := new(UserBan)
 	query := "SELECT * FROM user_bans WHERE user_id=?"
-	if err := h.getDB(userID).Get(banUser, query, userID); err != nil {
+	// This is updated by admin
+	if err := h.DB.Get(banUser, query, userID); err != nil {
 		if err == sql.ErrNoRows {
 			return false, nil
 		}

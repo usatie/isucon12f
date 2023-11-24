@@ -1,0 +1,3 @@
+05:24:34.037405 [PASSED]: true
+05:24:34.037421 [SCORE] 23911 (addition: 23911, deduction: 0)
+[ADMIN] 05:24:34.037473 [SCORE] map[GET /user/:userId/gacha/index:1214 GET /user/:userId/home:1215 GET /user/:userId/item:1143 GET /user/:userId/present/index/:n:2358 POST /login:71 POST /login(ban):120 POST /user:1144 POST /user/:userId/card:1143 POST /user/:userId/card/addexp/:cardId:1142 POST /user/:userId/gacha/draw/:gachaId:1214 POST /user/:userId/present/receive:2358 POST /user/:userId/reward:71]
